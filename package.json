@@ -21,14 +21,14 @@
     "url": "https://github.com/qcc42/fullstack4/issues"
   },
   "homepage": "https://github.com/qcc42/fullstack4#readme",
-
-"devDependencies" : {
-  "nodemon": "latest"
-},
-"dependencies": {
-  "dotenv": "latest",
-  "mongoose": "latest",
-  "cors": "latest",
-  "express": "latest"
-}
+  "devDependencies": {
+    "nodemon": "latest",
+    "supertest": "^7.0.0"
+  },
+  "dependencies": {
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "mongoose": "latest"
+  }
 }
