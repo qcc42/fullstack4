@@ -3,7 +3,7 @@ const assert = require('assert')
 const {test} = require('node:test')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
-const app = require('../main')
+const app = require('../app')
 const Blog = require('../models/blog')
 const api = supertest(app)
 
@@ -60,7 +60,11 @@ test('correct amount of blogs are returned', async () => {
     }  
   ]
   
-  const promiseArray= blogs.map(e => (new Blog(e)).save())
+  const promiseArray = blogs.map(e => api.post('/api/blogs/', (e, res) =>
+{
+  res.sendStatus(200)
+}
+  ))
   await Promise.all(promiseArray)
 
   const returnedBlogs = await Blog.find({})
