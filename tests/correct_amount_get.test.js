@@ -63,11 +63,32 @@ test('correct amount of blogs are returned', async () => {
   const promiseArray = blogs.map(e => new Blog(e).save())
   await Promise.all(promiseArray)
 
-  const returnedBlogs = await api.get('/api/blogs/', (req, res) => {
-  }
-)
+  const preliminaryBlogs = await api.get('/api/blogs/')
+  const preliminaryBody = preliminaryBlogs.body
+  const preliminaryLength = preliminaryBody.length
 
+  let newBlog =
+  {
+    _id: "5a422bc61b54a676235d17fc" ,
+    title: "Mårten's Blog",
+    author: "Mårten Jern",
+    url: "http://marten.jern.dummy.com",
+    likes: 999999999,
+    __v: 0
+  }  
+  await api.post('/api/blogs/')
+  .send(newBlog)
+  .expect(200)
+  .expect('Content-Type', /application\/json/)
+
+const returnedBlogs = await api.get('/api/blogs/')
 const body = returnedBlogs.body
 console.log(body)
-assert(body[0].id != null)
+const id = newBlog._id
+delete newBlog._id
+delete newBlog.__v
+newBlog.id = id
+console.log(newBlog)
+assert(body.length === preliminaryLength+1)
+assert.deepEqual(body[body.length-1], newBlog)
 })
