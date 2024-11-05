@@ -60,14 +60,13 @@ test('correct amount of blogs are returned', async () => {
     }  
   ]
   
-  const promiseArray = blogs.map(e => api.post('/api/blogs/', (e, res) =>
-{
-  res.sendStatus(200)
-}
-  ))
+  const promiseArray = blogs.map(e => new Blog(e).save())
   await Promise.all(promiseArray)
 
-  const returnedBlogs = await Blog.find({})
+  const returnedBlogs = await api.get('/api/blogs/', (req, res) => {
+  }
+)
 
-  assert.strictEqual(returnedBlogs.length, 6)
+const body = returnedBlogs.body
+assert.strictEqual(body.length, 6)
 })
