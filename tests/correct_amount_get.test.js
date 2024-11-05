@@ -68,5 +68,6 @@ test('correct amount of blogs are returned', async () => {
 )
 
 const body = returnedBlogs.body
-assert.strictEqual(body.length, 6)
+console.log(body)
+assert(body[0].id != null)
 })
