@@ -1,4 +1,3 @@
-//this solution also contains assignment 4.2.
 const config = require("./utils/config")
 const express = require('express')
 const app = express()

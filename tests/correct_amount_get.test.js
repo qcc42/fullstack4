@@ -92,3 +92,21 @@ console.log(newBlog)
 assert(body.length === preliminaryLength+1)
 assert.deepEqual(body[body.length-1], newBlog)
 })
+
+
+test('null likes defualts to 0', async () =>
+  {
+    await Blog.deleteMany({}) 
+    const blog =  {
+      _id: "5a422bc61b54a676234d17fc",
+      title: "Type wars",
+      author: "Robert C. Martin",
+      url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+      __v: 0
+    } 
+    await api.post('/api/blogs')
+    .send(blog)
+
+    const ret = await api.get('/api/blogs/')
+    assert.strictEqual(ret.body[0].likes, 0)
+  })
