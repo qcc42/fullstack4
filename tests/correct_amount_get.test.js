@@ -110,3 +110,30 @@ test('null likes defualts to 0', async () =>
     const ret = await api.get('/api/blogs/')
     assert.strictEqual(ret.body[0].likes, 0)
   })
+
+  test('missing url or titles results in response 400', async () => {
+    await Blog.deleteMany({})
+    const blog =  {
+      title: "asdf",
+      author: "Robert C. Martin",
+      url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+      __v: 0
+    } 
+
+    await api.post('/api/blogs')
+    .send(blog)
+    .expect(400)
+
+
+    const blog2 =  {
+      _id: "5a422bc61b54a676234d17fc",
+      author: "Robert C. Martin",
+      url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+      __v: 0
+    } 
+
+    await api.post('/api/blogs')
+    .send(blog2)
+    .expect(400)
+
+  })
