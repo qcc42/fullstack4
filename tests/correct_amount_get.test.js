@@ -114,9 +114,9 @@ test('null likes defualts to 0', async () =>
   test('missing url or titles results in response 400', async () => {
     await Blog.deleteMany({})
     const blog =  {
+      _id: "5a422bc61b54a676234d17fc",
       title: "asdf",
       author: "Robert C. Martin",
-      url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
       __v: 0
     } 
 

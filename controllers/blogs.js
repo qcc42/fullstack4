@@ -8,7 +8,7 @@ blogsRouter.get('/', async (request, response) => {
   })
   
   blogsRouter.post('/', async (request, response) => {
-    if(request.body.hasOwnProperty('_id') && request.body.hasOwnProperty('title')){
+    if(request.body.hasOwnProperty('url') && request.body.hasOwnProperty('title')){
       const blog = await new Blog(request.body).save()
       response.status(200).json(blog)
     }
