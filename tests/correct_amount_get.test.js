@@ -137,3 +137,28 @@ test('null likes defualts to 0', async () =>
     .expect(400)
 
   })
+
+  test('delete one test', async () => {
+    await Blog.deleteMany({})
+    const blog =  {
+      _id: "5a422bc61b54a676234d17fc",
+      title: "Type wars",
+      author: "Robert C. Martin",
+      url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+      __v: 0
+    } 
+    await api.post('/api/blogs')
+    .send(blog)
+    .expect(200)
+
+    let returnedBlogs = await api.get('/api/blogs/')
+    let body = returnedBlogs.body
+    assert.strictEqual(body.length, 1)
+
+    await api.delete('/api/blogs/' + blog._id)
+    .expect(200)
+
+    returnedBlogs = await api.get('/api/blogs/')
+    body = returnedBlogs.body
+    assert.strictEqual(body.length, 0)
+  })

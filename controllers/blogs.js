@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const mongoose = require('mongoose')
 
 blogsRouter.get('/', async (request, response) => {
     const blogs = await Blog.find({})
@@ -15,6 +16,11 @@ blogsRouter.get('/', async (request, response) => {
     else {
       response.status(400).end()
     }
+  })
+
+  blogsRouter.delete('/:id' , async (request, response) => {
+    Blog.deleteOne({_id: new mongoose.Types.ObjectId(request.params.id)})
+      response.status(200)
   })
 
   module.exports = blogsRouter
