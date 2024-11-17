@@ -22,14 +22,15 @@
   },
   "homepage": "https://github.com/qcc42/fullstack4#readme",
   "devDependencies": {
+    "jest": "latest",
     "nodemon": "latest",
-    "supertest": "^7.0.0",
-    "jest": "latest"
+    "supertest": "^7.0.0"
   },
   "dependencies": {
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",
+    "lodash": "^4.17.21",
     "mongoose": "latest"
   }
 }
