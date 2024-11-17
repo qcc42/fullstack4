@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "node --test",
+    "test": "jest",
     "dev": "nodemon main.js"
   },
   "repository": {
@@ -23,7 +23,8 @@
   "homepage": "https://github.com/qcc42/fullstack4#readme",
   "devDependencies": {
     "nodemon": "latest",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "jest": "latest"
   },
   "dependencies": {
     "cors": "latest",
