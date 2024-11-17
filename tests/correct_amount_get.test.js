@@ -8,7 +8,7 @@ const Blog = require('../models/blog')
 const api = supertest(app)
 const maxLikes = require('../utils/max_likes')
 const mostBlogs = require('../utils/mostBlogs')
-
+const mostLikes = require('../utils/most_likes')
 
 it('correct amount of blogs are returned', async () => {
    await Blog.deleteMany({}) 
@@ -264,5 +264,5 @@ it('test mostBlogs()', () => {
   } 
   ]
 
-  console.log(mostBlogs(blogs))
+  console.log(mostLikes(blogs))
 })
