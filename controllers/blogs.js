@@ -1,26 +1,66 @@
+const jwt = require('jsonwebtoken')
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
-const mongoose = require('mongoose')
+const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
-    const blogs = await Blog.find({})
-    response.json(blogs)
+  const blogs = await Blog
+    .find({}).populate('blog', { url: 1, title: 1 })
+  response.json(blogs)
+})
 
-  })
-  
-  blogsRouter.post('/', async (request, response) => {
-    if(request.body.hasOwnProperty('url') && request.body.hasOwnProperty('title')){
-      const blog = await new Blog(request.body).save()
-      response.status(200).json(blog)
-    }
-    else {
-      response.status(400).end()
-    }
+blogsRouter.put('/:id', async (request, response) => {
+  const body = request.body
+
+  const note = {
+    content: body.content,
+    important: body.important,
+  }
+
+  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, note, { new: true })
+  response.json(updatedBlog)
+})
+
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
+
+blogsRouter.post('/', async (request, response) => {
+  const body = request.body
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
+
+  const note = new Blog({
+    content: body.content,
+    important: body.important === undefined ? false : body.important,
+    user: user._id
   })
 
-  blogsRouter.delete('/:id' , async (request, response) => {
-    Blog.deleteOne({_id: new mongoose.Types.ObjectId(request.params.id)})
-      response.status(200)
-  })
+  const savedBlog = await note.save()
+  user.blogs = user.blogs.concat(savedBlog._id)
+  await user.save()
 
-  module.exports = blogsRouter
+  response.json(savedBlog)
+})
+blogsRouter.get('/:id', async (request, response) => {
+  const note = await Blog.findById(request.params.id)
+  if (note) {
+    response.json(note)
+  } else {
+    response.status(404).end()
+  }
+})
+
+blogsRouter.delete('/:id', async (request, response) => {
+  await Blog.findByIdAndDelete(request.params.id)
+  response.status(204).end()
+})
+
+module.exports = blogsRouter

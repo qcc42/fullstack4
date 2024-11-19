@@ -266,3 +266,36 @@ it('test mostBlogs()', () => {
 
   console.log(mostLikes(blogs))
 })
+
+it('test patching no. of likes', async () => {
+
+  await Blog.deleteMany({})
+  const id = "5a422bc61b54a676235d17fc"
+  const blog =
+
+  {
+    _id: id,
+    title: "Type wars2",
+    author: "Robert C. Martin",
+    url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars2.html",
+    likes: 2,
+    __v: 0
+  } 
+
+
+  await api.post('/api/blogs/')
+  .send(blog)
+  .expect(200)
+
+  modifiedBlog = 
+  await api.get("/api/blogs/" + id)
+  modifiedBlog.body.likes = 500
+await api.put('/api/blogs/')
+.send(modifiedBlog.body)
+  
+const retBlog = await api.get("/api/blogs/")
+
+console.log(retBlog.body)
+
+
+})
