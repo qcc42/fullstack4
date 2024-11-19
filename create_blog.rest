@@ -1,8 +1,8 @@
-post http://localhost:3001/api/notes
+post http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY3M2JmOGRkZmExMjYxYzNjMThlNWZlMSIsImlhdCI6MTczMTk4Mzk2Mn0.FiDcBVfzcp6TssTHA9Qceu8f3-P4Vh34iScpDzi2Aqk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvdGRzZnNzYWFhIiwiaWQiOiI2NzNjMTBlMjU0MzczZDRjZjgyNjk3NWQiLCJpYXQiOjE3MzE5ODk4NjN9.K9jfFLEDOsmgZb8xUm8reThRoovrFZYua1D-MhYAeA0
 
 {
-    "content": "This is my authorizated note",
-    "important": true
+    "title": "Maerssdffdsfdsfdsran",
+    "url" : "asad324s.adsdas.codsffdsfdsfsdfdsm"
 }

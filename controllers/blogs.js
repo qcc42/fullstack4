@@ -5,7 +5,7 @@ const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
-    .find({}).populate('blog', { url: 1, title: 1 })
+    .find({}).populate('user', { username: 1, name: 1, id: 1 })
   response.json(blogs)
 })
 
@@ -38,13 +38,13 @@ blogsRouter.post('/', async (request, response) => {
   const user = await User.findById(decodedToken.id)
 
   const note = new Blog({
-    content: body.content,
-    important: body.important === undefined ? false : body.important,
-    user: user._id
+    title: body.title,
+    url: body.url === undefined ? false : body.url,
+    user: user.id
   })
 
   const savedBlog = await note.save()
-  user.blogs = user.blogs.concat(savedBlog._id)
+  user.blogs = user.blogs.concat(savedBlog.id)
   await user.save()
 
   response.json(savedBlog)
