@@ -1,8 +1,8 @@
 post http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvdGRzZnNzYWFhIiwiaWQiOiI2NzNjMTBlMjU0MzczZDRjZjgyNjk3NWQiLCJpYXQiOjE3MzE5ODk4NjN9.K9jfFLEDOsmgZb8xUm8reThRoovrFZYua1D-MhYAeA0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InFjYyIsImlkIjoiNjczYzgwNDc3OWFjZDczMWMwMTM3Y2M0IiwiaWF0IjoxNzMyMDE4MzAwfQ.XKoJrfu-sFemkEm_d3uzEEXvAUvMwQ2HPzH6kGodeGk
 
 {
     "title": "Maerssdffdsfdsfdsran",
-    "url" : "asad324s.adsdas.codsffdsfdsfsdfdsm"
+    "url" : "asad324s.adsdas.codsffdsfdsfsdssdfdsm"
 }
