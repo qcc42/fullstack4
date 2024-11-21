@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const blogsSchema = new mongoose.Schema({
+  id: {
+    type: String,
+  },
+
   title: {
     type: String,
     required: true,
@@ -15,9 +19,8 @@ const blogsSchema = new mongoose.Schema({
   },
   author: String,
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
-    required: true,
   }
 } , {strictPopulate: false})
 

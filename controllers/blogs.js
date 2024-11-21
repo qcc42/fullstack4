@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const mongoose = require('mongoose')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
@@ -34,11 +35,11 @@ blogsRouter.post('/', async (request, response) => {
   const note = new Blog({
     title: body.title,
     url: body.url === undefined ? false : body.url,
-    user: user.id
+    user: user._id
   })
 
   const savedBlog = await note.save()
-  user.blogs = user.blogs.concat(savedBlog.id)
+  user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()
 
   response.json(savedBlog)
@@ -53,8 +54,25 @@ blogsRouter.get('/:id', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
-  await Blog.findByIdAndDelete(request.params.id)
-  response.status(204).end()
+  const body = request.body
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
+  if (user){
+      if (user.blogs.includes(request.params.id)){
+       const res = await Blog.findByIdAndDelete(new mongoose.Types.ObjectId(request.params.id))
+        console.log(res)
+      }
+      else{
+      response.status(404).end()
+    }
+  }
+  else{
+    response.status(404).end()
+  }
+    response.status(204).end()
 })
 
 module.exports = blogsRouter

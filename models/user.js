@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
+  id: {
+    type: String
+  },
   username: {
     type: String,
     required: true,
@@ -13,8 +16,8 @@ const userSchema = mongoose.Schema({
   required: true},
   blogs: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Blog'
+      type: String,
+      ref: 'Blog',
     }
   ]},
   {strictPopulate: false},

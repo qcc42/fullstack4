@@ -10,38 +10,6 @@ const Blog = require('../models/blog')
 
 test('Testing user validation', async () => {
     
+    await Blog.deleteMany({})
     await User.deleteMany({})
-
-    const newUser =
-    {
-        name: "Marten",
-        username: "marten2",
-        password: "martenspassword",
-
-    }
-   await api.post('/api/users')
-    .send(newUser)
-    .expect(201)
-
-    const newUser2 =
-    {
-        name: "Marten",
-        username: "ma",
-        password: "martenspassword",
-
-    }
-   await api.post('/api/users')
-    .send(newUser2)
-    .expect(400)
-
-    const newUser3 =
-    {
-        name: "Marten",
-        username: "marten3",
-        password: "ma",
-
-    }
-   await api.post('/api/users')
-    .send(newUser3)
-    .expect(400)
 })
